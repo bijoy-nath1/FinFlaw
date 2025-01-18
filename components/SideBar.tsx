@@ -35,7 +35,9 @@ function SideBar({ user }: SidebarProps) {
                   src={item.imgURL}
                   alt={item.label}
                   fill
-                  className={cn("sidebar-icon", { "text-white": isActive })}
+                  className={cn("sidebar-icon", {
+                    "brightness-[3] invert-0": isActive,
+                  })}
                 />
               </div>
               <p className={cn("sidebar-label", { "!text-white": isActive })}>

@@ -44,6 +44,7 @@
 }
 
 @layer utilities {
+
   .input-class {
     @apply text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
   }
@@ -103,6 +104,7 @@
   .text-36 {
     @apply text-[36px] leading-[44px];
   }
+  
 
   /* Home */
   .home {
