@@ -6,6 +6,7 @@ import {
   SheetClose,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +30,7 @@ function MobileNav({ user }: MobileNavProps) {
         </SheetTrigger>
 
         <SheetContent side="left" className="bg-white border-none">
-          <nav className="flex flex-col gap-4">
+          <SheetTitle>
             <Link
               href="/"
               className="mb-12 cursor-pointer items-center gap-2 flex"
@@ -45,6 +46,8 @@ function MobileNav({ user }: MobileNavProps) {
                 Horizon
               </h1>
             </Link>
+          </SheetTitle>
+          <nav className="flex flex-col gap-4">
             <div className="mobilenav-sheet">
               <SheetClose asChild>
                 <nav className="flex h-full flex-col gap-6 pt-16 text-white">
