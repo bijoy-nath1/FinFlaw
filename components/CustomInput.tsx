@@ -29,7 +29,7 @@ function CustomInput({ control, Label, name, placeholder }: CustomInputProps) {
             <Input
               placeholder={placeholder}
               {...field}
-              type={Label === "password" ? "password" : "text"}
+              type={Label === "Password" ? "password" : "text"}
               className=" input-class"
             />
           </FormControl>
