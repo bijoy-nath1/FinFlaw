@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { SetStateAction } from "react";
 import Image from "next/image";
 import { useState } from "react";
 import { z } from "zod";
@@ -12,11 +12,9 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { AuthFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { signIn, signUp } from "@/lib/actions/user.actions";
+import axios from "axios";
 
 function AuthForm({ type }: { type: string }) {
-  const router = useRouter();
   const [user, setuser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,8 +33,8 @@ function AuthForm({ type }: { type: string }) {
     setIsLoading(true);
     try {
       if (type === "sign-up") {
-        const newUser = await signUp(values);
-        setuser(newUser);
+        const newUser = await axios.post('/api/signUp', values);
+        setuser(newUser as unknown as SetStateAction<null>);
       }
       if (type === "sign-in") {
         // const response = await signIn({
