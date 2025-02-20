@@ -4,7 +4,7 @@ import Image from "next/image";
 import BankCard from "@/components/BankCard";
 
 function RightSidebar({
-  user = {},
+  user,
   transactions = [],
   banks = [],
 }: RightSidebarProps) {
@@ -15,16 +15,14 @@ function RightSidebar({
         <div className="profile">
           <div
             className="profile-img"
-            aria-label={`${user.firstName || "User"}'s Profile Picture`}
+            aria-label={`${user?.name || "User"}'s Profile Picture`}
           >
             <span className="text-5xl font-bold text-blue-500">
-              {user?.firstName?.[0] || "N"}
+              {user?.name?.charAt(0).toUpperCase() || "N"}
             </span>
           </div>
           <div className="profile-details">
-            <h1 className="profile-name">
-              {user?.firstName || "First"} {user?.lastName || "Last"}
-            </h1>
+            <h1 className="profile-name">{user?.name || "Your name"}</h1>
             <p className="profile-email">{user?.email || "No Email"}</p>
           </div>
         </div>
@@ -53,7 +51,7 @@ function RightSidebar({
               <BankCard
                 key={banks[0].$id}
                 account={banks[0]}
-                userName={`${user.firstName}${user.lastName}`}
+                userName={user?.name}
                 showBalance={false}
               />
             </div>
@@ -62,7 +60,7 @@ function RightSidebar({
                 <BankCard
                   key={banks[1].$id}
                   account={banks[1]}
-                  userName={`${user.firstName}${user.lastName}`}
+                  userName={user?.name}
                   showBalance={false}
                 />
               </div>

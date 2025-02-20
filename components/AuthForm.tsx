@@ -12,11 +12,13 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { AuthFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import axios from "axios";
+import { signIn, signUp } from "./actions/auth";
+import { useRouter } from "next/navigation";
 
 function AuthForm({ type }: { type: string }) {
-  const [user, setuser] = useState(null);
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const formSchema = AuthFormSchema(type);
   // 1. Define your form.
@@ -33,15 +35,12 @@ function AuthForm({ type }: { type: string }) {
     setIsLoading(true);
     try {
       if (type === "sign-up") {
-        const newUser = await axios.post('/api/signUp', values);
-        setuser(newUser as unknown as SetStateAction<null>);
+        const newUser = await signUp(values);
+        setUser(newUser);
       }
       if (type === "sign-in") {
-        // const response = await signIn({
-        //   email: values.email,
-        //   password: values.password,
-        // });
-        // if (response) router.push("/");
+        const response = await signIn(values);
+        if (response) router.push("/");
       }
     } catch (error) {
       console.log(error);
