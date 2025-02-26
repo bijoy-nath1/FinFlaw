@@ -5,6 +5,7 @@ import Image from "next/image";
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import LogOut from "@/components/LogOut";
 
 function SideBar({ user }: SidebarProps) {
   const pathname = usePathname();
@@ -19,7 +20,7 @@ function SideBar({ user }: SidebarProps) {
             alt="not found"
             className="mt-2 ml-3"
           />
-          <h1 className="sidebar-logo">Horizon</h1>
+          <h1 className="sidebar-logo">FinFlaw</h1>
         </Link>
         {sidebarLinks.map((item) => {
           const isActive =
@@ -28,7 +29,7 @@ function SideBar({ user }: SidebarProps) {
             <Link
               href={item.route}
               key={item.label}
-              className={cn("sidebar-link", { "bg-bank-gradient": isActive })}
+              className={cn("sidebar-link", { "bg-black-1": isActive })}
             >
               <div className=" relative size-6">
                 <Image
@@ -47,6 +48,9 @@ function SideBar({ user }: SidebarProps) {
           );
         })}
       </nav>
+      <div>
+        <LogOut user={user} type="mobile" />
+      </div>
     </section>
   );
 }

@@ -1,13 +1,29 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BankCard from "@/components/BankCard";
+import { logOutUser } from "@/components/actions/auth";
+import { useRouter } from "next/navigation";
 
 function RightSidebar({
   user,
   transactions = [],
   banks = [],
 }: RightSidebarProps) {
+  const router = useRouter();
+  async function handleClick() {
+    const response = await logOutUser();
+
+    alert(response);
+    if (response) {
+      localStorage.clear();
+      sessionStorage.clear();
+      router.push("/sign-in");
+    }
+  }
+
   return (
     <aside className="right-sidebar">
       <section className="flex flex-col pb-8">
@@ -24,6 +40,14 @@ function RightSidebar({
           <div className="profile-details">
             <h1 className="profile-name">{user?.name || "Your name"}</h1>
             <p className="profile-email">{user?.email || "No Email"}</p>
+          </div>
+          <div>
+            <button
+              className="text-white px-4 py-1 rounded-full my-3 bg-gray-700 hover:bg-gray-400 "
+              onClick={handleClick}
+            >
+              Log out
+            </button>
           </div>
         </div>
       </section>

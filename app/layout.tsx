@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Serif} from "next/font/google";
+import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 
 const InterSans = Inter({
@@ -8,17 +8,17 @@ const InterSans = Inter({
 });
 
 const ibmPlexSerif = IBM_Plex_Serif({
-  weight: ['400','700'],
+  weight: ["400", "700"],
   subsets: ["latin"],
-  variable:'--font-ibm-plex-serif'
+  variable: "--font-ibm-plex-serif",
 });
 
 export const metadata: Metadata = {
-  title: "Horizon",
-  description: "Horizon is a modern banking platform ",
-  icons:{
-    icon:'./icons/logo.svg'
-  }
+  title: "FinFlaw",
+  description: "FinFlaw is a modern banking platform ",
+  icons: {
+    icon: "./icons/logo.svg",
+  },
 };
 
 export default function RootLayout({

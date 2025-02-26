@@ -40,6 +40,8 @@ function AuthForm({ type }: { type: string }) {
       }
       if (type === "sign-in") {
         const response = await signIn(values);
+
+        // console.log("signin:", response);
         if (response) router.push("/");
       }
     } catch (error) {

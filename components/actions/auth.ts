@@ -10,6 +10,7 @@ interface FormData {
   email: string;
   firstName: string;
   lastName: string;
+  listSessions: () => Promise<{ sessions: any[] }>;
 }
 
 interface NewUserAccount {
@@ -74,6 +75,7 @@ export async function signUp(
     return parseStringify(newUserAccount);
   } catch (error) {
     console.log(error);
+    // return error;
   }
 }
 
@@ -83,16 +85,35 @@ export const signIn = async (formData: FormData): Promise<Session | void> => {
 
   const { account } = await createAdminClient();
   const response = await account.createEmailPasswordSession(email, password);
+  // console.log(response);
   return parseStringify(response);
 };
-
+// there is problem in my getLoggedInUser server function
 export const getLoggedInUser = async (): Promise<NewUserAccount | void> => {
   try {
     const { account }: SessionClient = await createSessionClient();
+
     const user: NewUserAccount = await account.get();
-    return user ? parseStringify(user) : null;
+    // console.log("Fetched User:", user);
+
+    return parseStringify(user);
+  } catch (error) {
+    // console.log("Error fetching logged-in user:", error);
+    return null;
+  }
+};
+// and also there is problem in my logOut server function
+export const logOutUser = async () => {
+  try {
+    const { account } = await createSessionClient();
+
+    (await cookies()).delete("appwrite-session");
+    await account.deleteSession("current");
+
+    // console.log(result);
+    return true;
   } catch (error) {
     console.log(error);
-    return undefined;
+    return null;
   }
 };
