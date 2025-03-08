@@ -12,6 +12,8 @@ function RightSidebar({
   transactions = [],
   banks = [],
 }: RightSidebarProps) {
+
+  //logout functionalities
   const router = useRouter();
   async function handleClick() {
     const response = await logOutUser();
@@ -41,6 +43,7 @@ function RightSidebar({
             <h1 className="profile-name">{user?.name || "Your name"}</h1>
             <p className="profile-email">{user?.email || "No Email"}</p>
           </div>
+          {/*logout*/}
           <div>
             <button
               className="text-white px-4 py-1 rounded-full my-3 bg-gray-700 hover:bg-gray-400 "

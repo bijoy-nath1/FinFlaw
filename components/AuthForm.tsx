@@ -35,13 +35,13 @@ function AuthForm({ type }: { type: string }) {
     setIsLoading(true);
     try {
       if (type === "sign-up") {
+        console.log('in sign-up on submit');
         const newUser = await signUp(values);
         setUser(newUser);
       }
       if (type === "sign-in") {
         const response = await signIn(values);
-
-        // console.log("signin:", response);
+        console.log("signin response:", response);
         if (response) router.push("/");
       }
     } catch (error) {

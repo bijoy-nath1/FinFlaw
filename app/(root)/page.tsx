@@ -6,6 +6,7 @@ import { getLoggedInUser } from "@/components/actions/auth";
 
 async function Home() {
   const loggedIn = await getLoggedInUser();
+  console.log('loggedIn:', loggedIn);
 
   return (
     <section className="home">

@@ -9,6 +9,7 @@ export async function createSessionClient() {
     .setProject(process.env.APPWRITE_PROJECT_ID!);
 
   const session = (await cookies()).get("appwrite-session");
+  console.log('session in get signedin user: ', session);
   if (!session || !session.value) {
     throw new Error("No session");
   }

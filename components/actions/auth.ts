@@ -53,6 +53,7 @@ export async function signUp(
   const name = `${formData.firstName} ${formData.lastName}`;
   try {
     const { account }: AdminClient = await createAdminClient();
+    console.log('account:', account);
 
     const newUserAccount: NewUserAccount = await account.create(
       ID.unique(),
@@ -60,10 +61,12 @@ export async function signUp(
       password,
       name
     );
+    console.log('newUserAccount:', newUserAccount);
     const session: Session = await account.createEmailPasswordSession(
       email,
       password
     );
+    console.log('session:', session);
 
     (await cookies()).set("appwrite-session", session.secret, {
       path: "/",
@@ -72,7 +75,7 @@ export async function signUp(
       secure: true,
     });
 
-    return parseStringify(newUserAccount);
+    return {newUserAccount};
   } catch (error) {
     console.log(error);
     // return error;
@@ -84,9 +87,19 @@ export const signIn = async (formData: FormData): Promise<Session | void> => {
   const password = formData.password;
 
   const { account } = await createAdminClient();
-  const response = await account.createEmailPasswordSession(email, password);
+  const session = await account.createEmailPasswordSession(email, password);
   // console.log(response);
-  return parseStringify(response);
+  // const session = (await cookies()).get("appwrite-session");
+  (await cookies()).set("appwrite-session", session.secret, {
+    path: "/",
+    httpOnly: true,
+    sameSite: "strict",
+    secure: true,
+  });
+  console.log('signed-in session:', session);
+  const cookie = (await cookies()).get("appwrite-session");
+    console.log(cookie);
+  return session;
 };
 // there is problem in my getLoggedInUser server function
 export const getLoggedInUser = async (): Promise<NewUserAccount | void> => {
@@ -94,7 +107,7 @@ export const getLoggedInUser = async (): Promise<NewUserAccount | void> => {
     const { account }: SessionClient = await createSessionClient();
 
     const user: NewUserAccount = await account.get();
-    // console.log("Fetched User:", user);
+    console.log("Fetched User:", user);
 
     return parseStringify(user);
   } catch (error) {

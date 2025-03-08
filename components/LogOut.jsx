@@ -3,7 +3,7 @@ import React from "react";
 function LogOut({ user, type = "desktop" }) {
   return (
     <div className="footer">
-      <div className="px-10 rounded-full border-2 border-black-2">
+      <div className="px-10 rounded-full border-2 border-black">
         <p className="text-yellow-400">{user.firstName[0]}</p>
       </div>
       <div
