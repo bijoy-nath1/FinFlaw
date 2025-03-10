@@ -14,6 +14,7 @@ import { AuthFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { signIn, signUp } from "./actions/auth";
 import { useRouter } from "next/navigation";
+import PlaidLink from "./PlaidLink";
 
 function AuthForm({ type }: { type: string }) {
   const [user, setUser] = useState(null);
@@ -33,15 +34,31 @@ function AuthForm({ type }: { type: string }) {
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
+
+    // const userData = {
+    //   firstName:values.firstName!,
+    //   lastName:values.lastName!,
+    //   address1:values.address1!,
+    //   city:values.city!,
+    //   state:values.state!,
+    //   postalCode:values.postalCode!,
+    //   dateOfBirth:values.dateOfBirth!,
+    //   ssn:values.ssn!,
+    //   email:values.email,
+    //   password:values.password,
+
+
+    // }
     try {
       if (type === "sign-up") {
-        console.log('in sign-up on submit');
+        // console.log('in sign-up on submit');
         const newUser = await signUp(values);
+        console.log("authform",newUser)
         setUser(newUser);
       }
       if (type === "sign-in") {
         const response = await signIn(values);
-        console.log("signin response:", response);
+        // console.log("signin response:", response);
         if (response) router.push("/");
       }
     } catch (error) {
@@ -78,11 +95,12 @@ function AuthForm({ type }: { type: string }) {
         </div>
       </header>
 
-      {user ? (
+      {/* {user ? ( */}
         <div className="flex flex-col gap-4">
           {/** Plain link to link account */}
+          <PlaidLink user={user} variant='primary'/>
         </div>
-      ) : (
+       {/* ) : (  */}
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -193,7 +211,7 @@ function AuthForm({ type }: { type: string }) {
             </p>
           </footer>
         </>
-      )}
+      {/* )}  */}
     </section>
   );
 }
